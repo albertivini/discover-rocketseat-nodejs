@@ -79,23 +79,24 @@ module.exports = {
             "daily-hours": req.body["daily-hours"],
         }
 
-        Job.data = Job.data.map(job => {
+        const newJobs = Job.get().map(job => {
             if(Number(job.id) === Number(jobId)) {
                 job = updatedJob
+                // substitui o array antigo pelo array atualizado
             }
-
             return job
         })
+
+        Job.update(newJobs)
+        // chama o método de atualizar o array de dados passando a variavel contendo o array de objetos atualizados
 
         return res.redirect('/job/' + jobId)
     },
     delete(req, res) {
     const jobId = req.params.id
 
-    // filter serve para tirar do array os dados que forem encontrados
-    // se aceitar a condição o valor permanece dentro do objeto, se nao aceitar o valor é retirado
-    Job.data = Job.data.filter(job => Number(job.id) !== Number(jobId))
-
+    Job.delete(jobId)
+    // chama o método de deletar o objeto dentro do array a partir do id
     return res.redirect('/')
     }
 }
