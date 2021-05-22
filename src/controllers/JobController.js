@@ -10,26 +10,6 @@ module.exports = {
 // para renderizar uma view usar res.render - isso usando ejs como template engine -
 /// res.render nao precisa de caminho pois ja busca a view
 
-    index(req, res) {
-
-        // Job.get() para pegar o array no model
-        const updatedJobs = Job.get().map((job) => {
-
-            // JobUtils busca a função no utils
-            const remaining = JobUtils.remainingDays(job)
-            const status = remaining <= 0 ? 'done' : 'progress'
-            // (if ternario) se o prazo for menor ou igual a zero colocar status done, se nao progress
-    
-            return {
-                ...job,
-                remaining,
-                status,
-                budget: JobUtils.calculateBudget(job)
-            }
-        })
-    
-        return res.render('index', { jobs: updatedJobs })
-    },
     job(req, res) {
         return res.render('job')
     },
