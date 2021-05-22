@@ -18,15 +18,17 @@ module.exports = {
         const lastId = Job.get()[Job.get().length - 1]?.id || 0
         // encontra o ultimo Id do array, se não encontrar (visto que 0 - 1 = undefined) dar o valor 1
         // const job = req.body
-    
-        Job.get().push({
+
+        // empurrando o req.body em formato de objeto para o array usando o metodo create    
+        Job.create(
+            {
             id: lastId + 1,
             name: req.body.name,
             "daily-hours": req.body["daily-hours"],
             "total-hours": req.body["total-hours"],
             created_at: Date.now() // atribuindo data de hoje
         })
-        // empurrando o req.body em formato de objeto para o array usando o push
+
         return res.redirect('/')
     },
     show(req, res) {

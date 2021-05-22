@@ -29,5 +29,9 @@ module.exports = {
         // filter serve para tirar do array os dados que forem encontrados
         // se aceitar a condição o valor permanece dentro do objeto, se nao aceitar o valor é retirado
         data = data.filter(job => Number(job.id) !== Number(id))
+    },
+    create(newJob) {
+        // push pega algo novo e insere no array
+        data.push(newJob)
     }
 }
