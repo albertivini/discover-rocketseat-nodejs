@@ -3,21 +3,23 @@ const JobUtils = require('../utils/jobUtils')
 const Profile = require('../models/Profile')
 
 module.exports = {
-    index(req, res) {
+    async index(req, res) {
 
-        const profile = Profile.get()
+        const jobs = await Job.get()
+        const profile = await Profile.get()
+        // usando await pois o Profile.get() e o Job.get() precisam esperar o banco buscar as informações
 
         let statusCount = {
             progress: 0,
             done: 0,
-            total: Job.get().length
+            total: jobs.length
             // mostra total de jobs dentro do array
         }
 
         let jobTotalHours = 0
 
         // Job.get() para pegar o array no model
-        const updatedJobs = Job.get().map((job) => {
+        const updatedJobs = jobs.map((job) => {
     
             // JobUtils busca a função no utils
             const remaining = JobUtils.remainingDays(job)
@@ -40,7 +42,7 @@ module.exports = {
                 ...job,
                 remaining,
                 status,
-                budget: JobUtils.calculateBudget(job)
+                budget: JobUtils.calculateBudget(job, profile['value-hour'])
             }
         })
 

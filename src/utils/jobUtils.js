@@ -2,6 +2,7 @@ const Profile = require('../models/Profile');
 
 module.exports = {
     remainingDays(job) {
+        
         // calculo de tempo restante
         // toFixed() transforma numero em inteiro
         // dueDay determina o dia do prazo maximo
@@ -21,6 +22,6 @@ module.exports = {
 
         return dayDiff
     },
-    calculateBudget: (job) => Profile.get()["value-hour"] * job["total-hours"]
+    calculateBudget: (job, valueHour) => valueHour * job["total-hours"]
     // profile.get() busca o array no model
 }
