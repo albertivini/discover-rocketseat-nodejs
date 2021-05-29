@@ -18,7 +18,8 @@ module.exports = {
         const dayInMs = 1000 * 60 * 60 * 24
         // daydiff dias que faltam pra finalizar o projeto
         // math.floor() é parecido com o toFixed(), porem arredondando pra baixo
-        const dayDiff = Math.floor(timeDiffInMs / dayInMs)
+        // math.ceil() arredonda pra cima
+        const dayDiff = Math.ceil(timeDiffInMs / dayInMs)
 
         return dayDiff
     },
